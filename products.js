@@ -5,11 +5,11 @@
 const WHATSAPP_NUMBER = "923056232108";
 
 const CATEGORIES = {
-  ladies: { label: "Ladies Suit Box", folder: "images/ladies", count: 9 },
-  gents:  { label: "Gents Box",       folder: "images/gents",  count: 12 },
-  bakery: { label: "Bakery Box",      folder: "images/bakery", count: 4 },
-  pizza:  { label: "Pizza Box",       folder: "images/pizza",  count: 4 },
-  bags:   { label: "Shopping Bags",   folder: "images/bags",   count: 4 },
+  ladies: { label: "Ladies Suit Box", folder: "images", count: 9 },
+  gents:  { label: "Gents Box",       folder: "images",  count: 12 },
+  bakery: { label: "Bakery Box",      folder: "images", count: 4 },
+  pizza:  { label: "Pizza Box",       folder: "images",  count: 4 },
+  bags:   { label: "Shopping Bags",   folder: "images",   count: 4 },
 };
 
 function quoteLink(categoryLabel, designNumber){
