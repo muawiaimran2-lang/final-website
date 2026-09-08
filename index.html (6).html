@@ -484,6 +484,346 @@
     Scroll
   </div>
 </section>
+<!-- ============================================================
+     PASTE THIS BLOCK RIGHT AFTER the closing </section> of the
+     hero (id="home"), and BEFORE the <script> tag at the bottom
+     of index.html. It reuses the CSS variables already defined
+     in your :root, so no other changes are needed.
+     ============================================================ -->
+
+<style>
+  /* ---------- ABOUT PREVIEW ---------- */
+  .about-preview{
+    background:var(--paper-050);
+    padding:96px clamp(20px, 5vw, 64px);
+  }
+  .about-preview .wrap{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:64px;
+    align-items:center;
+  }
+  .about-preview h2{
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:clamp(1.75rem, 3vw, 2.5rem);
+    line-height:1.15;
+    color:var(--navy-900);
+    margin:0 0 20px 0;
+  }
+  .about-preview p{
+    font-size:1.05rem;
+    line-height:1.7;
+    color:#4A5568;
+    max-width:52ch;
+    margin:0 0 28px 0;
+  }
+  .about-preview .about-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-weight:600;
+    color:var(--orange-600);
+    border-bottom:2px solid transparent;
+    transition:border-color 0.25s ease, gap 0.25s ease;
+  }
+  .about-preview .about-link:hover{
+    border-color:var(--orange-500);
+    gap:12px;
+  }
+
+  .about-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--paper-100);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .about-stats .stat{
+    background:#fff;
+    padding:32px 24px;
+  }
+  .about-stats .stat .num{
+    display:block;
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:2rem;
+    color:var(--navy-900);
+    margin-bottom:6px;
+  }
+  .about-stats .stat .label{
+    font-size:0.9rem;
+    color:#6B7280;
+  }
+
+  @media (max-width:800px){
+    .about-preview .wrap{ grid-template-columns:1fr; gap:36px; }
+  }
+
+  /* ---------- PRODUCTS SHOWCASE ---------- */
+  .products-preview{
+    background:var(--navy-950);
+    padding:96px clamp(20px, 5vw, 64px);
+  }
+  .products-preview .head{
+    max-width:1200px;
+    margin:0 auto 44px auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .products-preview h2{
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:clamp(1.75rem, 3vw, 2.5rem);
+    color:#fff;
+    margin:0;
+  }
+  .products-preview .view-all{
+    color:#EDEFEF;
+    font-weight:500;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding-bottom:2px;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+    transition:border-color 0.25s ease;
+    white-space:nowrap;
+  }
+  .products-preview .view-all:hover{ border-color:var(--orange-500); color:#fff; }
+
+  .products-grid{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:20px;
+  }
+  .product-card{
+    position:relative;
+    border-radius:8px;
+    overflow:hidden;
+    aspect-ratio:3/4;
+    background:var(--navy-800);
+  }
+  .product-card img{
+    width:100%; height:100%;
+    object-fit:cover;
+    transition:transform 0.5s ease;
+  }
+  .product-card:hover img{ transform:scale(1.06); }
+  .product-card .card-label{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding:18px 16px;
+    background:linear-gradient(to top, rgba(7,21,39,0.92) 0%, transparent 100%);
+    color:#fff;
+    font-weight:600;
+    font-size:0.95rem;
+  }
+
+  @media (max-width:900px){
+    .products-grid{ grid-template-columns:repeat(3, 1fr); }
+  }
+  @media (max-width:560px){
+    .products-grid{ grid-template-columns:repeat(2, 1fr); }
+    .products-preview .head{ align-items:flex-start; }
+  }
+
+  /* ---------- CTA BANNER ---------- */
+  .cta-banner{
+    background:var(--orange-500);
+    padding:64px clamp(20px, 5vw, 64px);
+    text-align:center;
+  }
+  .cta-banner h3{
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:clamp(1.4rem, 2.4vw, 2rem);
+    color:#fff;
+    margin:0 0 12px 0;
+  }
+  .cta-banner p{
+    color:rgba(255,255,255,0.9);
+    margin:0 0 28px 0;
+    font-size:1.05rem;
+  }
+  .cta-banner a{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:#fff;
+    color:var(--orange-600);
+    font-weight:700;
+    padding:14px 30px;
+    border-radius:6px;
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .cta-banner a:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 22px -8px rgba(0,0,0,0.35);
+  }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer{
+    background:var(--navy-950);
+    padding:64px clamp(20px, 5vw, 64px) 32px;
+    color:#B9C2CC;
+  }
+  .site-footer .footer-grid{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr;
+    gap:48px;
+    padding-bottom:40px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .site-footer .logo-block{
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:20px;
+    color:#fff;
+    margin-bottom:14px;
+  }
+  .site-footer .logo-block span{ color:var(--orange-500); }
+  .site-footer p{ font-size:0.92rem; line-height:1.6; max-width:34ch; }
+  .site-footer h4{
+    color:#fff;
+    font-size:0.95rem;
+    font-weight:600;
+    margin:0 0 16px 0;
+  }
+  .site-footer ul{ list-style:none; margin:0; padding:0; }
+  .site-footer li{ margin-bottom:10px; }
+  .site-footer a{
+    color:#B9C2CC;
+    font-size:0.92rem;
+    transition:color 0.2s ease;
+  }
+  .site-footer a:hover{ color:var(--orange-500); }
+  .site-footer .bottom-row{
+    max-width:1200px;
+    margin:24px auto 0 auto;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:0.85rem;
+    color:#6B7A8C;
+  }
+
+  @media (max-width:800px){
+    .site-footer .footer-grid{ grid-template-columns:1fr; gap:32px; }
+  }
+</style>
+
+<!-- About preview -->
+<section class="about-preview" id="about-preview">
+  <div class="wrap">
+    <div>
+      <h2>Packaging built the way your product needs it</h2>
+      <p>
+        IP Printers manufactures custom boxes and bags in-house, from raw
+        board to finished carton, right here in Faisalabad. We work with
+        retail and food businesses that need consistent print quality,
+        reliable turnaround, and sizes that actually fit what they're
+        packing.
+      </p>
+      <a href="/about" class="about-link">
+        More about us
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
+    <div class="about-stats">
+      <div class="stat"><span class="num">5</span><span class="label">Product categories</span></div>
+      <div class="stat"><span class="num">500+</span><span class="label">Minimum order units</span></div>
+      <div class="stat"><span class="num">33+</span><span class="label">Ready designs to choose from</span></div>
+      <div class="stat"><span class="num">100%</span><span class="label">In-house manufacturing</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Products showcase -->
+<section class="products-preview" id="products-preview">
+  <div class="head">
+    <h2>What we print</h2>
+    <a href="/products" class="view-all">
+      View all products
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </a>
+  </div>
+  <div class="products-grid">
+    <a href="/products" class="product-card">
+      <img src="ladies-1.png" alt="Ladies suit box">
+      <span class="card-label">Ladies Suit Box</span>
+    </a>
+    <a href="/products" class="product-card">
+      <img src="gents-1.png" alt="Gents box">
+      <span class="card-label">Gents Box</span>
+    </a>
+    <a href="/products" class="product-card">
+      <img src="bakery-1.png" alt="Bakery box">
+      <span class="card-label">Bakery Box</span>
+    </a>
+    <a href="/products" class="product-card">
+      <img src="pizza-1.png" alt="Pizza box">
+      <span class="card-label">Pizza Box</span>
+    </a>
+    <a href="/products" class="product-card">
+      <img src="bags-1.png" alt="Shopping bags">
+      <span class="card-label">Shopping Bags</span>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <h3>Need a size or finish that's not listed?</h3>
+  <p>We print custom sizes, materials and finishes to order — minimum 500 units.</p>
+  <a href="https://wa.me/923056232108?text=Hi%2C%20I%27m%20interested%20in%20custom%20packaging%20from%20IP%20Printers.">
+    Get a quote on WhatsApp
+  </a>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="logo-block">IP <span>PRINTERS</span></div>
+      <p>Custom-printed boxes and bags, manufactured in-house from raw board to finished carton, in Faisalabad, Pakistan.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="https://wa.me/923056232108">WhatsApp: +92 305 6232108</a></li>
+        <li><a href="tel:+923056232108">Call: +92 305 6232108</a></li>
+        <li>Faisalabad, Pakistan</li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <span>&copy; <span id="year"></span> IP Printers. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 
 <script>
   const toggle = document.getElementById('navToggle');
