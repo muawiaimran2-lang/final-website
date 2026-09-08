@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | IP Printers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#071527;
+    --navy-900:#0B1E36;
+    --navy-800:#122A4A;
+    --orange-500:#E15B23;
+    --orange-600:#C74A18;
+    --paper-050:#F5F6F4;
+    --paper-100:#E7E9E6;
+    --ink-muted:#B9C2CC;
+    --header-h:88px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    font-family:'Poppins', sans-serif;
+    background:var(--paper-050);
+    color:var(--navy-900);
+  }
+  a{ text-decoration:none; color:inherit; }
+  button{ font-family:inherit; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+  .info-card.reveal:nth-child(1){ transition-delay:0.05s; }
+  .info-card.reveal:nth-child(2){ transition-delay:0.12s; }
+  .info-card.reveal:nth-child(3){ transition-delay:0.19s; }
+  .info-card.reveal:nth-child(4){ transition-delay:0.26s; }
+
+  @keyframes barIn{
+    from{ width:0; }
+    to{ width:100%; }
+  }
+
+  @keyframes heroIn{
+    from{ opacity:0; transform:translateY(22px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes waPulse{
+    0%, 100%{ box-shadow:0 8px 20px rgba(0,0,0,0.25); }
+    50%{ box-shadow:0 8px 20px rgba(0,0,0,0.25), 0 0 0 9px rgba(37,211,102,0.18); }
+  }
+  @keyframes floatShape{
+    0%, 100%{ transform:translate(0, 0) scale(1); }
+    50%{ transform:translate(-16px, 14px) scale(1.05); }
+  }
+  @keyframes popIn{
+    from{ opacity:0; transform:scale(0.92); }
+    to{ opacity:1; transform:scale(1); }
+  }
+
+  /* ---------- TOP STRIP ---------- */
+  .top-strip{
+    background:var(--navy-950);
+    color:var(--ink-muted);
+    font-size:13px;
+    padding:8px clamp(20px, 5vw, 64px);
+  }
+  .strip-inner{
+    max-width:1240px;
+    margin:0 auto;
+    display:flex;
+    gap:24px;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+  }
+  .strip-item{ display:inline-flex; align-items:center; gap:6px; }
+  .strip-right{ display:flex; align-items:center; gap:18px; }
+  .dot{ width:6px; height:6px; border-radius:50%; background:var(--orange-500); display:inline-block; }
+  .strip-phone{ color:var(--ink-muted); transition:color 0.2s ease; }
+  .strip-phone:hover{ color:#fff; }
+
+  /* ---------- HEADER ---------- */
+  .site-header{
+    position:sticky;
+    top:0;
+    z-index:40;
+    height:var(--header-h);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 clamp(20px, 5vw, 64px);
+    background:var(--navy-950);
+    box-shadow:0 0 0 rgba(0,0,0,0);
+    transition:box-shadow 0.3s ease;
+  }
+  .site-header.is-scrolled{ box-shadow:0 6px 24px rgba(0,0,0,0.28); }
+  .logo{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:22px;
+    letter-spacing:0.3px;
+    color:#fff;
+  }
+  .logo span.mark{ color:var(--orange-500); }
+
+  .main-nav ul{
+    list-style:none;
+    display:flex;
+    gap:36px;
+    margin:0; padding:0;
+  }
+  .main-nav a{
+    color:#EDEFEF;
+    font-size:15px;
+    font-weight:500;
+    position:relative;
+    padding:6px 0;
+    transition:color 0.25s ease;
+  }
+  .main-nav a::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:0;
+    width:0;
+    height:2px;
+    background:var(--orange-500);
+    transition:width 0.25s ease;
+  }
+  .main-nav a:hover{ color:#fff; }
+  .main-nav a:hover::after{ width:100%; }
+  .main-nav a[aria-current="page"]{ color:#fff; }
+  .main-nav a[aria-current="page"]::after{ width:100%; }
+
+  .nav-toggle{
+    display:none;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:8px;
+    width:44px; height:44px;
+    align-items:center;
+    justify-content:center;
+  }
+  .nav-toggle span,
+  .nav-toggle::before,
+  .nav-toggle::after{
+    content:"";
+    display:block;
+    width:24px;
+    height:2px;
+    background:#fff;
+    transition:transform 0.3s ease, opacity 0.3s ease;
+  }
+  .nav-toggle span{ margin:6px 0; }
+  .nav-toggle[aria-expanded="true"]::before{ transform:translateY(8px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span{ opacity:0; }
+  .nav-toggle[aria-expanded="true"]::after{ transform:translateY(-8px) rotate(-45deg); }
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-head{
+    position:relative;
+    background:var(--navy-900);
+    color:#fff;
+    padding:64px clamp(20px, 5vw, 64px) 68px;
+    overflow:hidden;
+  }
+  .head-inner{ max-width:720px; position:relative; z-index:1; }
+  .eyebrow-line{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--orange-500);
+    margin:0 0 14px;
+    animation:heroIn 0.7s ease both;
+  }
+  .page-head h1{
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:clamp(2rem, 5vw, 3rem);
+    line-height:1.1;
+    margin:0 0 16px;
+    animation:heroIn 0.7s ease both 0.1s;
+  }
+  .head-sub{
+    font-size:16px;
+    line-height:1.65;
+    color:var(--ink-muted);
+    max-width:560px;
+    margin:0;
+    animation:heroIn 0.7s ease both 0.2s;
+  }
+  .head-shape{
+    position:absolute;
+    right:-100px; top:-100px;
+    width:380px; height:380px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(225,91,35,0.18), transparent 70%);
+    pointer-events:none;
+    animation:floatShape 9s ease-in-out infinite;
+  }
+  .head-ctas{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:28px;
+    position:relative;
+    z-index:1;
+    animation:heroIn 0.7s ease both 0.3s;
+  }
+  .head-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:13px 26px;
+    font-weight:600;
+    font-size:14.5px;
+    transition:transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .head-btn svg{ width:16px; height:16px; }
+  .head-btn-primary{ background:var(--orange-500); color:#fff; }
+  .head-btn-primary:hover{ background:var(--orange-600); transform:translateY(-3px); box-shadow:0 10px 24px rgba(225,91,35,0.35); }
+  .head-btn-outline{ border:1.5px solid rgba(255,255,255,0.35); color:#fff; }
+  .head-btn-outline:hover{ border-color:#fff; transform:translateY(-3px); background:rgba(255,255,255,0.08); }
+
+  /* ---------- MAIN CONTENT ---------- */
+  .contact-main{
+    max-width:1080px;
+    margin:0 auto;
+    padding:64px clamp(20px, 5vw, 64px) 80px;
+  }
+  .contact-main h2{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:clamp(1.4rem, 3vw, 1.8rem);
+    color:var(--navy-900);
+    margin:0 0 20px;
+  }
+
+  /* ---------- QUICK INFO ---------- */
+  .info-row{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+  }
+  .info-card{
+    position:relative;
+    background:var(--paper-100);
+    padding:24px 22px;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .info-card::before, .info-card::after{
+    content:'';
+    position:absolute;
+    width:14px; height:14px;
+    border:2px solid var(--orange-500);
+    opacity:0;
+    transition:opacity 0.25s ease;
+  }
+  .info-card::before{ top:7px; left:7px; border-right:none; border-bottom:none; }
+  .info-card::after{ bottom:7px; right:7px; border-left:none; border-top:none; }
+  .info-card:hover{ transform:translateY(-5px); box-shadow:0 14px 28px rgba(11,30,54,0.12); }
+  .info-card:hover::before, .info-card:hover::after{ opacity:1; }
+  .info-card .info-icon{
+    width:38px; height:38px;
+    border-radius:50%;
+    background:var(--navy-900);
+    color:var(--orange-500);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:14px;
+    transition:transform 0.3s ease;
+  }
+  .info-card:hover .info-icon{ transform:scale(1.12) rotate(-6deg); }
+  .info-card .info-icon svg{ width:18px; height:18px; }
+  .info-card h3{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:15.5px;
+    margin:0 0 8px;
+    color:var(--navy-900);
+  }
+  .info-card a, .info-card p{
+    display:block;
+    font-size:14px;
+    line-height:1.6;
+    color:var(--navy-800);
+    margin:0 0 2px;
+    text-decoration:none;
+  }
+  .info-card a:hover{ color:var(--orange-500); }
+
+  /* ---------- FORM ---------- */
+  .form-block{ margin-top:64px; }
+  .form-card{
+    position:relative;
+    background:#fff;
+    border:1px solid var(--paper-100);
+    padding:clamp(24px, 4vw, 44px);
+    max-width:720px;
+    overflow:hidden;
+  }
+  .form-card::before{
+    content:'';
+    position:absolute;
+    top:0; left:0;
+    height:3px;
+    width:0;
+    background:var(--orange-500);
+    animation:barIn 1s ease 0.3s forwards;
+  }
+  .form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-bottom:18px;
+  }
+  .field{ display:flex; flex-direction:column; }
+  .field.full{ grid-column:1 / -1; }
+  .field label{
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--navy-900);
+    margin-bottom:6px;
+  }
+  .field label .opt{ font-weight:400; color:var(--ink-muted); }
+  .field input,
+  .field select,
+  .field textarea{
+    font-family:'Poppins', sans-serif;
+    font-size:14.5px;
+    padding:11px 13px;
+    border:1px solid #D7DCE1;
+    background:var(--paper-050);
+    color:var(--navy-900);
+    transition:border-color 0.2s ease, box-shadow 0.2s ease;
+    width:100%;
+  }
+  .field textarea{ resize:vertical; min-height:80px; font-family:inherit; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus{
+    outline:none;
+    border-color:var(--orange-500);
+    box-shadow:0 0 0 3px rgba(225,91,35,0.15);
+  }
+  .size-fields{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+  .submit-btn{
+    background:var(--orange-500);
+    color:#fff;
+    border:none;
+    padding:14px 30px;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    transition:background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top:6px;
+  }
+  .submit-btn:hover{
+    background:var(--orange-600);
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px rgba(225,91,35,0.35);
+  }
+
+  .confirm-box{
+    display:none;
+    text-align:center;
+    padding:48px 24px;
+    animation:popIn 0.4s ease both;
+  }
+  .confirm-box.is-shown{ display:block; }
+  .confirm-icon{
+    width:64px; height:64px;
+    border-radius:50%;
+    background:#E9F8EF;
+    color:#1FA34C;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 18px;
+  }
+  .confirm-icon svg{ width:30px; height:30px; }
+  .confirm-box h3{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--navy-900);
+    margin:0 0 10px;
+  }
+  .confirm-box p{
+    font-size:14.5px;
+    color:var(--navy-800);
+    max-width:420px;
+    margin:0 auto;
+    line-height:1.6;
+  }
+
+  /* ---------- FLOATING WHATSAPP ---------- */
+  .wa-float{
+    position:fixed;
+    bottom:24px; right:24px;
+    width:56px; height:56px;
+    border-radius:50%;
+    background:#25D366;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
+    z-index:50;
+    animation:waPulse 2.6s ease-in-out infinite;
+    transition:transform 0.2s ease;
+  }
+  .wa-float:hover{ transform:scale(1.08); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 720px){
+    .main-nav{ display:none; }
+    .nav-toggle{ display:flex; }
+    .form-row{ grid-template-columns:1fr; }
+    .size-fields{ grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-strip">
+  <div class="strip-inner">
+    <span class="strip-item"><i class="dot"></i> Faisalabad, Pakistan</span>
+    <div class="strip-right">
+      <a href="https://wa.me/923056232108" class="strip-item strip-phone" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67c2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 0 1 2.42 5.82c0 4.54-3.7 8.24-8.25 8.24a8.3 8.3 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.55 3.7-8.24 8.26-8.24"/></svg>
+        +92 305 6232108
+      </a>
+      <a href="https://www.instagram.com/ipprinters2/" class="strip-phone" target="_blank" rel="noopener" aria-label="IP Printers on Instagram">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <a href="/" class="logo" aria-label="IP Printers home">
+    IP <span class="mark">PRINTERS</span>
+  </a>
+
+  <nav class="main-nav" aria-label="Primary">
+    <ul id="primary-menu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/contact" aria-current="page">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-menu">
+    <span></span>
+  </button>
+</header>
+
+<header class="page-head">
+  <div class="head-inner">
+    <p class="eyebrow-line">IP PRINTERS &mdash; CONTACT US</p>
+    <h1>Let's Talk Packaging</h1>
+    <p class="head-sub">Tell us what you need — sizes, quantities, finishes — and we'll get back to you with a quote. Or reach us directly on call or WhatsApp.</p>
+    <div class="head-ctas">
+      <a href="tel:+923056232108" class="head-btn head-btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Call Now
+      </a>
+      <a href="https://wa.me/923056232108" target="_blank" rel="noopener" class="head-btn head-btn-outline">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67c2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 0 1 2.42 5.82c0 4.54-3.7 8.24-8.25 8.24a8.3 8.3 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.55 3.7-8.24 8.26-8.24"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="head-shape" aria-hidden="true"></div>
+</header>
+
+<main class="contact-main">
+
+  <div class="info-row">
+    <div class="info-card reveal">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      </div>
+      <h3>Call Us</h3>
+      <a href="tel:+923056232108">+92 305 6232108</a>
+      <a href="tel:+923006657035">+92 300 6657035</a>
+    </div>
+    <div class="info-card reveal">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67c2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 0 1 2.42 5.82c0 4.54-3.7 8.24-8.25 8.24a8.3 8.3 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.55 3.7-8.24 8.26-8.24"/></svg>
+      </div>
+      <h3>WhatsApp</h3>
+      <a href="https://wa.me/923056232108" target="_blank" rel="noopener">Chat with us instantly</a>
+    </div>
+    <div class="info-card reveal">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      </div>
+      <h3>Location</h3>
+      <p>Faisalabad, Pakistan</p>
+    </div>
+    <div class="info-card reveal">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </div>
+      <h3>Instagram</h3>
+      <a href="https://www.instagram.com/ipprinters2/" target="_blank" rel="noopener">@ipprinters2</a>
+    </div>
+  </div>
+
+  <section class="form-block reveal">
+    <h2>Request a Quote</h2>
+
+    <form class="form-card" id="quoteForm">
+      <div class="form-row">
+        <div class="field">
+          <label for="fName">Full Name</label>
+          <input type="text" id="fName" name="name" required>
+        </div>
+        <div class="field">
+          <label for="fPhone">Phone Number</label>
+          <input type="tel" id="fPhone" name="phone" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="fEmail">Email <span class="opt">(optional)</span></label>
+          <input type="email" id="fEmail" name="email">
+        </div>
+        <div class="field">
+          <label for="fCategory">Category <span class="opt">(optional)</span></label>
+          <select id="fCategory" name="category">
+            <option value="" selected>Select a category</option>
+            <option>Ladies Suit Box</option>
+            <option>Gents Box</option>
+            <option>Bakery Box</option>
+            <option>Pizza Box</option>
+            <option>Shopping Bags</option>
+            <option>Other / Custom</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field full">
+          <label>Box Size <span class="opt">(optional)</span></label>
+          <div class="size-fields">
+            <input type="number" id="fWidth" name="width" placeholder="Width" min="0" step="0.1">
+            <input type="number" id="fHeight" name="height" placeholder="Height" min="0" step="0.1">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field full">
+          <label for="fAddress">Delivery Address</label>
+          <textarea id="fAddress" name="address" placeholder="Where should we deliver your order?"></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Send Inquiry on WhatsApp</button>
+    </form>
+
+    <div class="confirm-box form-card" id="confirmBox">
+      <div class="confirm-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h3>Inquiry Sent!</h3>
+      <p>Redirecting you to WhatsApp with your details filled in — just hit send there to complete your request. We'll get back to you shortly.</p>
+    </div>
+  </section>
+
+</main>
+
+<a href="https://wa.me/923056232108" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67c2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 0 1 2.42 5.82c0 4.54-3.7 8.24-8.25 8.24a8.3 8.3 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.55 3.7-8.24 8.26-8.24m4.53 10.06c-.24-.13-1.47-.74-1.7-.82-.23-.08-.4-.13-.56.13-.17.25-.65.82-.8.99-.14.17-.3.19-.55.06-.24-.13-1.03-.39-1.96-1.24-.72-.66-1.22-1.47-1.36-1.72-.14-.24-.01-.38.11-.5.11-.11.24-.3.37-.44.12-.15.16-.25.24-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.37-.77-1.87-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.44.06-.66.31-.23.25-.87.86-.87 2.09 0 1.24.9 2.43 1.02 2.6.13.17 1.77 2.75 4.32 3.86.6.26 1.08.42 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.46-.28"/></svg>
+</a>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('primary-menu');
+  toggle.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  const header = document.querySelector('.site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('is-scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  const revealItems = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealItems.forEach(item => revealObserver.observe(item));
+
+  // Quote form -> WhatsApp
+  const WHATSAPP_NUMBER = "923056232108";
+  const form = document.getElementById('quoteForm');
+  const confirmBox = document.getElementById('confirmBox');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('fName').value.trim();
+    const phone = document.getElementById('fPhone').value.trim();
+    const email = document.getElementById('fEmail').value.trim();
+    const category = document.getElementById('fCategory').value;
+    const width = document.getElementById('fWidth').value;
+    const height = document.getElementById('fHeight').value;
+    const address = document.getElementById('fAddress').value.trim();
+
+    let msg = `Hi, I'd like to request a quote from IP Printers.\n\n`;
+    msg += `Name: ${name}\n`;
+    msg += `Phone: ${phone}\n`;
+    msg += `Email: ${email || 'Not provided'}\n`;
+    msg += `Category: ${category || 'Not specified'}\n`;
+    msg += `Size: ${(width && height) ? width + ' x ' + height : 'Not specified'}\n`;
+    msg += `Delivery Address: ${address || 'Not provided'}`;
+
+    const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+    form.style.display = 'none';
+    confirmBox.classList.add('is-shown');
+
+    // Redirect the same tab after a short pause so the confirmation is visible first.
+    // (Using location.href instead of window.open avoids mobile popup blockers.)
+    setTimeout(() => {
+      window.location.href = waLink;
+    }, 1400);
+  });
+</script>
+
+</body>
+</html>
