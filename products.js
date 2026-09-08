@@ -6,7 +6,7 @@ const WHATSAPP_NUMBER = "923056232108";
 
 const CATEGORIES = {
   ladies: { label: "Ladies Suit Box", folder: "", count: 9 },
-  gents:  { label: "Gents Box",       folder: "",  count: 12 },
+  gents:  { label: "Gents Box",       folder: "",  count: 32 },
   bakery: { label: "Bakery Box",      folder: "", count: 4 },
   pizza:  { label: "Pizza Box",       folder: "",  count: 4 },
   bags:   { label: "Shopping Bags",   folder: "",   count: 4 },
