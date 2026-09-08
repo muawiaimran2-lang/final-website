@@ -5,8 +5,8 @@
 const WHATSAPP_NUMBER = "923056232108";
 
 const CATEGORIES = {
-  ladies: { label: "Ladies Suit Box", folder: "", count: 9 },
-  gents:  { label: "Gents Box",       folder: "",  count: 32 },
+  ladies: { label: "Ladies Suit Box", folder: "", count: 21 },
+  gents:  { label: "Gents Box",       folder: "",  count: 32, skip: [19,20,21,22,23,24,25] },
   bakery: { label: "Bakery Box",      folder: "", count: 4 },
   pizza:  { label: "Pizza Box",       folder: "",  count: 4 },
   bags:   { label: "Shopping Bags",   folder: "",   count: 4 },
@@ -27,20 +27,26 @@ function buildGrid(catKey){
   const grid = panel.querySelector('.grid');
   grid.innerHTML = '';
 
+  const skip = new Set(cat.skip || []);
+  let shown = 0;
+
   for (let i = 1; i <= cat.count; i++){
+    if (skip.has(i)) continue;
+    shown++;
+
     const card = document.createElement('div');
     card.className = 'card';
-    card.style.animationDelay = `${Math.min(i * 0.045, 0.5)}s`;
+    card.style.animationDelay = `${Math.min(shown * 0.045, 0.5)}s`;
 
     const imgSrc = `${cat.folder}/${catKey}-${i}.png`;
 
     card.innerHTML = `
       <div class="card-img-wrap">
-        <img src="${imgSrc}" alt="${cat.label} design ${i}" loading="lazy">
+        <img src="${imgSrc}" alt="${cat.label} design ${shown}" loading="lazy">
       </div>
       <div class="card-body">
-        <span class="card-label">${cat.label} — ${String(i).padStart(2,'0')}</span>
-        <a class="card-quote" href="${quoteLink(cat.label, i)}" target="_blank" rel="noopener">
+        <span class="card-label">${cat.label} — ${String(shown).padStart(2,'0')}</span>
+        <a class="card-quote" href="${quoteLink(cat.label, shown)}" target="_blank" rel="noopener">
           ${quoteIconSVG()} Get a Quote
         </a>
       </div>
