@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | IP Printers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#071527;
+    --navy-900:#0B1E36;
+    --navy-800:#122A4A;
+    --orange-500:#E15B23;
+    --orange-600:#C74A18;
+    --paper-050:#F5F6F4;
+    --paper-100:#E7E9E6;
+    --ink-muted:#B9C2CC;
+    --header-h:88px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    font-family:'Poppins', sans-serif;
+    background:var(--paper-050);
+    color:var(--navy-900);
+  }
+  a{ text-decoration:none; color:inherit; }
+  button{ font-family:inherit; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+  .why-card.reveal:nth-child(1){ transition-delay:0.05s; }
+  .why-card.reveal:nth-child(2){ transition-delay:0.1s; }
+  .why-card.reveal:nth-child(3){ transition-delay:0.15s; }
+  .why-card.reveal:nth-child(4){ transition-delay:0.2s; }
+  .why-card.reveal:nth-child(5){ transition-delay:0.25s; }
+  .why-card.reveal:nth-child(6){ transition-delay:0.3s; }
+
+  @keyframes floatShape{
+    0%, 100%{ transform:translate(0, 0) scale(1); }
+    50%{ transform:translate(-16px, 14px) scale(1.05); }
+  }
+
+  @keyframes heroIn{
+    from{ opacity:0; transform:translateY(22px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes waPulse{
+    0%, 100%{ box-shadow:0 8px 20px rgba(0,0,0,0.25); }
+    50%{ box-shadow:0 8px 20px rgba(0,0,0,0.25), 0 0 0 9px rgba(37,211,102,0.18); }
+  }
+
+  /* ---------- TOP STRIP ---------- */
+  .top-strip{
+    background:var(--navy-950);
+    color:var(--ink-muted);
+    font-size:13px;
+    padding:8px clamp(20px, 5vw, 64px);
+  }
+  .strip-inner{
+    max-width:1240px;
+    margin:0 auto;
+    display:flex;
+    gap:24px;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+  }
+  .strip-item{ display:inline-flex; align-items:center; gap:6px; }
+  .strip-right{ display:flex; align-items:center; gap:18px; }
+  .dot{ width:6px; height:6px; border-radius:50%; background:var(--orange-500); display:inline-block; }
+  .strip-phone{ color:var(--ink-muted); transition:color 0.2s ease; }
+  .strip-phone:hover{ color:#fff; }
+
+  /* ---------- HEADER ---------- */
+  .site-header{
+    position:sticky;
+    top:0;
+    z-index:40;
+    height:var(--header-h);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 clamp(20px, 5vw, 64px);
+    background:var(--navy-950);
+    box-shadow:0 0 0 rgba(0,0,0,0);
+    transition:box-shadow 0.3s ease;
+  }
+  .site-header.is-scrolled{ box-shadow:0 6px 24px rgba(0,0,0,0.28); }
+  .logo{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:22px;
+    letter-spacing:0.3px;
+    color:#fff;
+  }
+  .logo span.mark{ color:var(--orange-500); }
+
+  .main-nav ul{
+    list-style:none;
+    display:flex;
+    gap:36px;
+    margin:0; padding:0;
+  }
+  .main-nav a{
+    color:#EDEFEF;
+    font-size:15px;
+    font-weight:500;
+    position:relative;
+    padding:6px 0;
+    transition:color 0.25s ease;
+  }
+  .main-nav a::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:0;
+    width:0;
+    height:2px;
+    background:var(--orange-500);
+    transition:width 0.25s ease;
+  }
+  .main-nav a:hover{ color:#fff; }
+  .main-nav a:hover::after{ width:100%; }
+  .main-nav a[aria-current="page"]{ color:#fff; }
+  .main-nav a[aria-current="page"]::after{ width:100%; }
+
+  .nav-toggle{
+    display:none;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:8px;
+    width:44px; height:44px;
+    align-items:center;
+    justify-content:center;
+  }
+  .nav-toggle span,
+  .nav-toggle::before,
+  .nav-toggle::after{
+    content:"";
+    display:block;
+    width:24px;
+    height:2px;
+    background:#fff;
+    transition:transform 0.3s ease, opacity 0.3s ease;
+  }
+  .nav-toggle span{ margin:6px 0; }
+  .nav-toggle[aria-expanded="true"]::before{ transform:translateY(8px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span{ opacity:0; }
+  .nav-toggle[aria-expanded="true"]::after{ transform:translateY(-8px) rotate(-45deg); }
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-head{
+    position:relative;
+    background:var(--navy-900);
+    color:#fff;
+    padding:64px clamp(20px, 5vw, 64px) 68px;
+    overflow:hidden;
+  }
+  .head-inner{ max-width:720px; position:relative; z-index:1; }
+  .eyebrow-line{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--orange-500);
+    margin:0 0 14px;
+    animation:heroIn 0.7s ease both;
+  }
+  .page-head h1{
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:clamp(2rem, 5vw, 3rem);
+    line-height:1.1;
+    margin:0 0 16px;
+    animation:heroIn 0.7s ease both 0.1s;
+  }
+  .head-sub{
+    font-size:16px;
+    line-height:1.65;
+    color:var(--ink-muted);
+    max-width:560px;
+    margin:0;
+    animation:heroIn 0.7s ease both 0.2s;
+  }
+  .head-shape{
+    position:absolute;
+    right:-100px; top:-100px;
+    width:380px; height:380px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(225,91,35,0.18), transparent 70%);
+    pointer-events:none;
+    animation:floatShape 9s ease-in-out infinite;
+  }
+
+  /* ---------- MAIN CONTENT ---------- */
+  .about-main{
+    max-width:1080px;
+    margin:0 auto;
+    padding:64px clamp(20px, 5vw, 64px) 0;
+  }
+  .about-main h2{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:clamp(1.4rem, 3vw, 1.8rem);
+    color:var(--navy-900);
+    margin:0 0 20px;
+  }
+  .story p{
+    font-size:16.5px;
+    line-height:1.8;
+    color:var(--navy-800);
+    max-width:720px;
+    margin:0 0 18px;
+  }
+
+  /* ---------- WHY CHOOSE US ---------- */
+  .why-block{ margin-top:64px; }
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:20px;
+    margin-top:32px;
+  }
+  .why-card{
+    position:relative;
+    background:var(--paper-100);
+    padding:26px 22px;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .why-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 14px 28px rgba(11,30,54,0.12);
+  }
+  .why-card::before, .why-card::after{
+    content:'';
+    position:absolute;
+    width:14px; height:14px;
+    border:2px solid var(--orange-500);
+    opacity:0;
+    transition:opacity 0.25s ease;
+  }
+  .why-card::before{ top:7px; left:7px; border-right:none; border-bottom:none; }
+  .why-card::after{ bottom:7px; right:7px; border-left:none; border-top:none; }
+  .why-card:hover::before, .why-card:hover::after{ opacity:1; }
+  .why-card h3{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:16.5px;
+    margin:0 0 10px;
+    color:var(--navy-900);
+  }
+  .why-card p{
+    font-size:14px;
+    line-height:1.6;
+    color:var(--navy-800);
+    margin:0;
+  }
+
+  /* ---------- STATS STRIP ---------- */
+  .stats-strip{
+    display:flex;
+    flex-wrap:wrap;
+    margin-top:64px;
+    border-top:1px solid var(--paper-100);
+    border-bottom:1px solid var(--paper-100);
+  }
+  .stat{
+    flex:1 1 200px;
+    text-align:center;
+    padding:32px 16px;
+    border-left:1px solid var(--paper-100);
+  }
+  .stat:first-child{ border-left:none; }
+  .stat-num{
+    display:block;
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:clamp(1.7rem, 4vw, 2.3rem);
+    color:var(--orange-500);
+  }
+  .stat-label{
+    font-size:13px;
+    color:var(--navy-800);
+    margin-top:6px;
+  }
+
+  /* ---------- GET IN TOUCH ---------- */
+  .touch-block{
+    margin-top:64px;
+    padding-bottom:64px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:40px;
+    justify-content:space-between;
+  }
+  .phones a{
+    display:block;
+    font-size:15.5px;
+    color:var(--navy-900);
+    margin-top:8px;
+    transition:color 0.2s ease;
+  }
+  .phones a:hover{ color:var(--orange-500); }
+  .terms-link{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:14.5px;
+    color:var(--navy-800);
+    margin-top:10px;
+    transition:color 0.2s ease, transform 0.2s ease;
+  }
+  .terms-link:first-of-type{ margin-top:4px; }
+  .terms-link svg{ width:18px; height:18px; flex-shrink:0; }
+  .terms-link:hover{ color:var(--orange-500); transform:translateX(3px); }
+
+  /* ---------- CTA STRIP ---------- */
+  .cta-strip{ background:var(--navy-950); color:#fff; padding:52px clamp(20px, 5vw, 64px); }
+  .cta-strip-inner{
+    max-width:1080px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .cta-text h3{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:21px;
+    margin:0 0 8px;
+  }
+  .cta-text p{ color:var(--ink-muted); margin:0; font-size:14.5px; }
+  .cta-btn-lg{
+    background:var(--orange-500);
+    color:#fff;
+    padding:14px 28px;
+    font-weight:600;
+    font-size:15px;
+    white-space:nowrap;
+    transition:background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    display:inline-block;
+  }
+  .cta-btn-lg:hover{
+    background:var(--orange-600);
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px rgba(225,91,35,0.35);
+  }
+
+  /* ---------- FLOATING WHATSAPP ---------- */
+  .wa-float{
+    position:fixed;
+    bottom:24px; right:24px;
+    width:56px; height:56px;
+    border-radius:50%;
+    background:#25D366;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
+    z-index:50;
+    animation:waPulse 2.6s ease-in-out infinite;
+    transition:transform 0.2s ease;
+  }
+  .wa-float:hover{ transform:scale(1.08); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 720px){
+    .main-nav{ display:none; }
+    .nav-toggle{ display:flex; }
+    .stat{ flex:1 1 50%; border-left:none; border-top:1px solid var(--paper-100); }
+    .stat:nth-child(odd){ border-right:1px solid var(--paper-100); }
+    .cta-strip-inner{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-strip">
+  <div class="strip-inner">
+    <span class="strip-item"><i class="dot"></i> Faisalabad, Pakistan</span>
+    <div class="strip-right">
+      <a href="https://wa.me/923056232108" class="strip-item strip-phone" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67c2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 0 1 2.42 5.82c0 4.54-3.7 8.24-8.25 8.24a8.3 8.3 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.55 3.7-8.24 8.26-8.24"/></svg>
+        +92 305 6232108
+      </a>
+      <a href="https://www.instagram.com/ipprinters2/" class="strip-phone" target="_blank" rel="noopener" aria-label="IP Printers on Instagram">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <a href="/" class="logo" aria-label="IP Printers home">
+    IP <span class="mark">PRINTERS</span>
+  </a>
+
+  <nav class="main-nav" aria-label="Primary">
+    <ul id="primary-menu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/about" aria-current="page">About Us</a></li>
+      <li><a href="/contact">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-menu">
+    <span></span>
+  </button>
+</header>
+
+<header class="page-head">
+  <div class="head-inner">
+    <p class="eyebrow-line">IP PRINTERS &mdash; ABOUT US</p>
+    <h1>Built On Two Decades of Packaging Experience</h1>
+    <p class="head-sub">From concept to finished carton, IP Printers has spent 20+ years manufacturing packaging in-house — without ever compromising on materials.</p>
+  </div>
+  <div class="head-shape" aria-hidden="true"></div>
+</header>
+
+<main class="about-main">
+
+  <section class="story reveal">
+    <h2>Our Story</h2>
+    <p>IP Printers has been designing and manufacturing packaging for businesses in Faisalabad and across Pakistan for more than 20 years. In that time, our approach hasn't changed: every box and bag we produce is made in-house, from raw board to finished product, using materials we refuse to compromise on.</p>
+    <p>Whether it's a small custom order or an ongoing supply line, our production runs on the same standard we started with two decades ago — reliable quality, delivered on time.</p>
+  </section>
+
+  <section class="why-block">
+    <h2>Why Businesses Choose Us</h2>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <h3>20+ Years of Experience</h3>
+        <p>Two decades of hands-on packaging manufacturing, refined with every order we produce.</p>
+      </div>
+      <div class="why-card reveal">
+        <h3>No Compromise on Materials</h3>
+        <p>We use full, high-quality board and print stock on every job — no shortcuts, ever.</p>
+      </div>
+      <div class="why-card reveal">
+        <h3>Fully In-House Production</h3>
+        <p>From design to the finished carton, every step happens under one roof.</p>
+      </div>
+      <div class="why-card reveal">
+        <h3>Custom Sizes &amp; Finishes</h3>
+        <p>Need something specific? We print custom sizes, materials, and finishes to order.</p>
+      </div>
+      <div class="why-card reveal">
+        <h3>Nationwide Delivery</h3>
+        <p>We deliver to businesses in almost every part of Pakistan.</p>
+      </div>
+      <div class="why-card reveal">
+        <h3>500-Box Minimum Orders</h3>
+        <p>Built for businesses that need reliable volume, produced to one consistent standard.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-strip reveal">
+    <div class="stat">
+      <span class="stat-num" data-target="20" data-suffix="+">0</span>
+      <span class="stat-label">Years in Business</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" data-target="500" data-suffix="">0</span>
+      <span class="stat-label">Box Minimum per Order</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">Nationwide</span>
+      <span class="stat-label">Delivery Across Pakistan</span>
+    </div>
+  </div>
+
+  <div class="touch-block reveal">
+    <div class="phones">
+      <h2 style="margin-bottom:8px;">Call Us</h2>
+      <a href="tel:+923056232108">+92 305 6232108</a>
+      <a href="tel:+923006657035">+92 300 6657035</a>
+    </div>
+    <div class="terms">
+      <h2 style="margin-bottom:8px;">Policies</h2>
+      <a class="terms-link" href="/terms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        Terms &amp; Conditions
+      </a>
+      <a class="terms-link" href="/privacy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5.25 3.4 9.74 8 11 4.6-1.26 8-5.75 8-11V5z"></path></svg>
+        Privacy Policy
+      </a>
+      <a class="terms-link" href="/returns">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-8.5L1 10"></path></svg>
+        Return &amp; Refund Policy
+      </a>
+      <a class="terms-link" href="/shipping">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+        Shipping Policy
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<section class="cta-strip">
+  <div class="cta-strip-inner reveal">
+    <div class="cta-text">
+      <h3>Ready to Start Your Order?</h3>
+      <p>Tell us what you need — sizes, quantities, finishes — and we'll get back to you with a quote.</p>
+    </div>
+    <a href="https://wa.me/923056232108?text=Hi%2C%20I%27m%20interested%20in%20getting%20a%20quote%20from%20IP%20Printers." class="cta-btn-lg" target="_blank" rel="noopener">
+      Get a Quote on WhatsApp
+    </a>
+  </div>
+</section>
+
+<a href="https://wa.me/923056232108" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67c2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 0 1 2.42 5.82c0 4.54-3.7 8.24-8.25 8.24a8.3 8.3 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.55 3.7-8.24 8.26-8.24m4.53 10.06c-.24-.13-1.47-.74-1.7-.82-.23-.08-.4-.13-.56.13-.17.25-.65.82-.8.99-.14.17-.3.19-.55.06-.24-.13-1.03-.39-1.96-1.24-.72-.66-1.22-1.47-1.36-1.72-.14-.24-.01-.38.11-.5.11-.11.24-.3.37-.44.12-.15.16-.25.24-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.37-.77-1.87-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.44.06-.66.31-.23.25-.87.86-.87 2.09 0 1.24.9 2.43 1.02 2.6.13.17 1.77 2.75 4.32 3.86.6.26 1.08.42 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.46-.28"/></svg>
+</a>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('primary-menu');
+  toggle.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Header shadow on scroll
+  const header = document.querySelector('.site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('is-scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  // Scroll-reveal for sections and cards
+  const revealItems = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealItems.forEach(item => revealObserver.observe(item));
+
+  // Animated count-up for stat numbers
+  const statNums = document.querySelectorAll('.stat-num[data-target]');
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1200;
+      const start = performance.now();
+      function tick(now){
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      countObserver.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  statNums.forEach(el => countObserver.observe(el));
+</script>
+
+</body>
+</html>
