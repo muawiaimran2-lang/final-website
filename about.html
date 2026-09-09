@@ -433,8 +433,8 @@
 <header class="page-head">
   <div class="head-inner">
     <p class="eyebrow-line">IP PRINTERS &mdash; ABOUT US</p>
-    <h1>Built On Two Decades of Packaging Experience</h1>
-    <p class="head-sub">From concept to finished carton, IP Printers has spent 20+ years manufacturing packaging in-house — without ever compromising on materials.</p>
+    <h1>Built On Craftsmanship And Consistency</h1>
+    <p class="head-sub">From concept to finished carton, IP Printers brings hands-on manufacturing experience to every order — without ever compromising on materials.</p>
   </div>
   <div class="head-shape" aria-hidden="true"></div>
 </header>
@@ -443,16 +443,16 @@
 
   <section class="story reveal">
     <h2>Our Story</h2>
-    <p>IP Printers has been designing and manufacturing packaging for businesses in Faisalabad and across Pakistan for more than 20 years. In that time, our approach hasn't changed: every box and bag we produce is made in-house, from raw board to finished product, using materials we refuse to compromise on.</p>
-    <p>Whether it's a small custom order or an ongoing supply line, our production runs on the same standard we started with two decades ago — reliable quality, delivered on time.</p>
+    <p>IP Printers designs and manufactures packaging for businesses in Faisalabad and across Pakistan, backed by real hands-on manufacturing experience. Our approach stays the same on every order: every box and bag we produce is made in-house, from raw board to finished product, using materials we refuse to compromise on.</p>
+    <p>Whether it's a small custom order or an ongoing supply line, our production runs on one consistent standard — reliable quality, delivered on time.</p>
   </section>
 
   <section class="why-block">
     <h2>Why Businesses Choose Us</h2>
     <div class="why-grid">
       <div class="why-card reveal">
-        <h3>20+ Years of Experience</h3>
-        <p>Two decades of hands-on packaging manufacturing, refined with every order we produce.</p>
+        <h3>Hands-On Manufacturing Experience</h3>
+        <p>Real, hands-on packaging manufacturing experience, refined with every order we produce.</p>
       </div>
       <div class="why-card reveal">
         <h3>No Compromise on Materials</h3>
@@ -479,8 +479,8 @@
 
   <div class="stats-strip reveal">
     <div class="stat">
-      <span class="stat-num" data-target="20" data-suffix="+">0</span>
-      <span class="stat-label">Years in Business</span>
+      <span class="stat-num" data-target="100" data-suffix="%">0</span>
+      <span class="stat-label">In-House Production</span>
     </div>
     <div class="stat">
       <span class="stat-num" data-target="500" data-suffix="">0</span>
@@ -540,16 +540,20 @@
 <script>
   const toggle = document.getElementById('navToggle');
   const menu = document.getElementById('primary-menu');
-  toggle.addEventListener('click', () => {
-    const isOpen = menu.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(isOpen));
-  });
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
 
   // Header shadow on scroll
   const header = document.querySelector('.site-header');
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('is-scrolled', window.scrollY > 10);
-  }, { passive: true });
+  if (header) {
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 10);
+    }, { passive: true });
+  }
 
   // Scroll-reveal for sections and cards
   const revealItems = document.querySelectorAll('.reveal');
@@ -564,13 +568,13 @@
   revealItems.forEach(item => revealObserver.observe(item));
 
   // Animated count-up for stat numbers
-  const statNums = document.querySelectorAll('.stat-num[data-target]');
-  const countObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
+  try {
+    const statNums = document.querySelectorAll('.stat-num[data-target]');
+
+    function runCount(el){
       const target = parseInt(el.dataset.target, 10);
       const suffix = el.dataset.suffix || '';
+      if (Number.isNaN(target)) return;
       const duration = 1200;
       const start = performance.now();
       function tick(now){
@@ -580,10 +584,33 @@
         if (progress < 1) requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
-      countObserver.unobserve(el);
-    });
-  }, { threshold: 0.4 });
-  statNums.forEach(el => countObserver.observe(el));
+    }
+
+    if ('IntersectionObserver' in window) {
+      const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          runCount(entry.target);
+          countObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.2 });
+
+      statNums.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const alreadyVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        if (alreadyVisible) {
+          runCount(el); // page loaded already scrolled to this section
+        } else {
+          countObserver.observe(el);
+        }
+      });
+    } else {
+      // No IntersectionObserver support: just run immediately
+      statNums.forEach(runCount);
+    }
+  } catch (err) {
+    console.error('Stat counter failed:', err);
+  }
 </script>
 
 </body>
