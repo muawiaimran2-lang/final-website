@@ -112,17 +112,24 @@ function initLightbox(){
     });
   });
 
-  document.getElementById('lbClose').addEventListener('click', closeLightbox);
-  document.getElementById('lbPrev').addEventListener('click', () => lbStep(-1));
-  document.getElementById('lbNext').addEventListener('click', () => lbStep(1));
+  const lbClose = document.getElementById('lbClose');
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+  const lbOverlay = document.getElementById('lbOverlay');
 
-  document.getElementById('lbOverlay').addEventListener('click', (e) => {
-    if (e.target.id === 'lbOverlay') closeLightbox();
-  });
+  if (lbClose) lbClose.addEventListener('click', closeLightbox);
+  if (lbPrev) lbPrev.addEventListener('click', () => lbStep(-1));
+  if (lbNext) lbNext.addEventListener('click', () => lbStep(1));
+
+  if (lbOverlay) {
+    lbOverlay.addEventListener('click', (e) => {
+      if (e.target.id === 'lbOverlay') closeLightbox();
+    });
+  }
 
   document.addEventListener('keydown', (e) => {
     const overlay = document.getElementById('lbOverlay');
-    if (!overlay.classList.contains('is-open')) return;
+    if (!overlay || !overlay.classList.contains('is-open')) return;
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') lbStep(-1);
     if (e.key === 'ArrowRight') lbStep(1);
