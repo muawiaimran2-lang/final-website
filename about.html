@@ -431,6 +431,79 @@
     transition:transform 0.25s ease;
   }
   .next-page-link:hover .next-page-arrow{ transform:translateX(4px); }
+  /* ---------- FLOATING NEXT PAGE TAB ---------- */
+  .side-next-tab{
+    position:fixed;
+    bottom:96px;
+    right:24px;
+    height:56px;
+    width:56px;
+    border-radius:28px;
+    background:linear-gradient(135deg, var(--orange-500), var(--orange-600));
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    text-decoration:none;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(225,91,35,0.35);
+    z-index:45;
+    animation:nextPulse 2.8s ease-in-out infinite;
+    transition:width 0.4s cubic-bezier(.4,0,.2,1), transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .side-next-tab:hover{
+    width:196px;
+    transform:translateY(-3px);
+    animation:none;
+    box-shadow:0 12px 28px rgba(225,91,35,0.45);
+  }
+  .side-next-tab-text{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    white-space:nowrap;
+    padding-left:18px;
+    opacity:0;
+    transform:translateX(10px);
+    transition:opacity 0.25s ease 0.08s, transform 0.25s ease 0.08s;
+  }
+  .side-next-tab:hover .side-next-tab-text{ opacity:1; transform:translateX(0); }
+  .side-next-tab-label{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:9px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.8);
+  }
+  .side-next-tab-title{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:#fff;
+  }
+  .side-next-tab-icon{
+    width:56px;
+    height:56px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    animation:iconNudge 1.6s ease-in-out infinite;
+  }
+  @keyframes iconNudge{
+    0%, 100%{ transform:translateX(0); }
+    50%{ transform:translateX(3px); }
+  }
+  @keyframes nextPulse{
+    0%, 100%{ box-shadow:0 8px 20px rgba(225,91,35,0.35); }
+    50%{ box-shadow:0 8px 20px rgba(225,91,35,0.35), 0 0 0 10px rgba(225,91,35,0.16); }
+  }
+  @media (max-width: 640px){
+    .side-next-tab{ bottom:88px; right:16px; }
+    .side-next-tab:hover{ width:176px; }
+    .side-next-tab-title{ font-size:12px; }
+  }
 </style>
 </head>
 <body>
@@ -663,6 +736,16 @@
     console.error('Stat counter failed:', err);
   }
 </script>
+
+<a href="/contact" class="side-next-tab" aria-label="Next page: Contact">
+  <span class="side-next-tab-text">
+    <span class="side-next-tab-label">Next</span>
+    <span class="side-next-tab-title">Contact</span>
+  </span>
+  <span class="side-next-tab-icon" aria-hidden="true">
+    <svg viewBox="0 0 28 16" width="26" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="8" x2="22" y2="8"></line><polyline points="16 2 23 8 16 14"></polyline></svg>
+  </span>
+</a>
 
 </body>
 </html>
