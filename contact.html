@@ -597,15 +597,19 @@
 <script>
   const toggle = document.getElementById('navToggle');
   const menu = document.getElementById('primary-menu');
-  toggle.addEventListener('click', () => {
-    const isOpen = menu.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(isOpen));
-  });
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
 
   const header = document.querySelector('.site-header');
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('is-scrolled', window.scrollY > 10);
-  }, { passive: true });
+  if (header) {
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 10);
+    }, { passive: true });
+  }
 
   const revealItems = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
@@ -619,40 +623,51 @@
   revealItems.forEach(item => revealObserver.observe(item));
 
   // Quote form -> WhatsApp
-  const WHATSAPP_NUMBER = "923056232108";
-  const form = document.getElementById('quoteForm');
-  const confirmBox = document.getElementById('confirmBox');
+  try {
+    const WHATSAPP_NUMBER = "923056232108";
+    const form = document.getElementById('quoteForm');
+    const confirmBox = document.getElementById('confirmBox');
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+    if (form && confirmBox) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-    const name = document.getElementById('fName').value.trim();
-    const phone = document.getElementById('fPhone').value.trim();
-    const email = document.getElementById('fEmail').value.trim();
-    const category = document.getElementById('fCategory').value;
-    const width = document.getElementById('fWidth').value;
-    const height = document.getElementById('fHeight').value;
-    const address = document.getElementById('fAddress').value.trim();
+        const getVal = (id) => {
+          const el = document.getElementById(id);
+          return el ? el.value.trim() : '';
+        };
 
-    let msg = `Hi, I'd like to request a quote from IP Printers.\n\n`;
-    msg += `Name: ${name}\n`;
-    msg += `Phone: ${phone}\n`;
-    msg += `Email: ${email || 'Not provided'}\n`;
-    msg += `Category: ${category || 'Not specified'}\n`;
-    msg += `Size: ${(width && height) ? width + ' x ' + height : 'Not specified'}\n`;
-    msg += `Delivery Address: ${address || 'Not provided'}`;
+        const name = getVal('fName');
+        const phone = getVal('fPhone');
+        const email = getVal('fEmail');
+        const category = getVal('fCategory');
+        const width = getVal('fWidth');
+        const height = getVal('fHeight');
+        const address = getVal('fAddress');
 
-    const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+        let msg = `Hi, I'd like to request a quote from IP Printers.\n\n`;
+        msg += `Name: ${name}\n`;
+        msg += `Phone: ${phone}\n`;
+        msg += `Email: ${email || 'Not provided'}\n`;
+        msg += `Category: ${category || 'Not specified'}\n`;
+        msg += `Size: ${(width && height) ? width + ' x ' + height : 'Not specified'}\n`;
+        msg += `Delivery Address: ${address || 'Not provided'}`;
 
-    form.style.display = 'none';
-    confirmBox.classList.add('is-shown');
+        const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 
-    // Redirect the same tab after a short pause so the confirmation is visible first.
-    // (Using location.href instead of window.open avoids mobile popup blockers.)
-    setTimeout(() => {
-      window.location.href = waLink;
-    }, 1400);
-  });
+        form.style.display = 'none';
+        confirmBox.classList.add('is-shown');
+
+        // Redirect the same tab after a short pause so the confirmation is visible first.
+        // (Using location.href instead of window.open avoids mobile popup blockers.)
+        setTimeout(() => {
+          window.location.href = waLink;
+        }, 1400);
+      });
+    }
+  } catch (err) {
+    console.error('Quote form failed:', err);
+  }
 </script>
 
 </body>
