@@ -417,9 +417,185 @@
     .hero-copy h1{ font-size:1.7rem; }
   }
 
-  /* Landscape phones: hero can be shorter than 100dvh comfortably */
-  @media (max-width: 900px) and (orientation:landscape){
-    .hero{ min-height:auto; padding:calc(var(--header-h) + 24px) 0 40px; }
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  /* ---------- SHARED SECTION STYLES ---------- */
+  .home-section{
+    padding:80px clamp(20px, 5vw, 64px);
+    max-width:1240px;
+    margin:0 auto;
+  }
+  .home-section .eyebrow-line{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--orange-500);
+    margin:0 0 10px;
+  }
+  .home-section h2{
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:clamp(1.6rem, 4vw, 2.2rem);
+    color:var(--navy-900);
+    margin:0 0 16px;
+  }
+  .home-section > p.section-sub{
+    max-width:640px;
+    font-size:15.5px;
+    line-height:1.65;
+    color:var(--navy-800);
+    margin:0 0 36px;
+  }
+  .section-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:32px;
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--orange-600);
+  }
+  .section-link .arrow{ transition:transform 0.25s ease; }
+  .section-link:hover .arrow{ transform:translateX(4px); }
+
+  /* ---------- PRODUCTS PREVIEW ---------- */
+  .products-preview{ background:var(--paper-050); }
+  .product-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:20px;
+  }
+  .product-card{
+    position:relative;
+    background:#fff;
+    border:1px solid var(--paper-100);
+    padding:28px 22px;
+    text-align:center;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .product-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 14px 28px rgba(11,30,54,0.1);
+  }
+  .product-card .p-icon{
+    width:44px; height:44px;
+    margin:0 auto 16px;
+    color:var(--orange-500);
+  }
+  .product-card h3{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:15.5px;
+    color:var(--navy-900);
+    margin:0 0 6px;
+  }
+  .product-card span{
+    font-size:13px;
+    color:var(--navy-800);
+    opacity:0.75;
+  }
+
+  /* ---------- ABOUT TEASER ---------- */
+  .about-teaser{ background:var(--paper-100); }
+  .teaser-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:48px;
+    align-items:start;
+  }
+  .teaser-copy p{
+    font-size:15.5px;
+    line-height:1.7;
+    color:var(--navy-800);
+    margin:0 0 16px;
+  }
+  .why-mini-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:16px;
+  }
+  .why-mini-card{
+    background:#fff;
+    padding:20px 18px;
+  }
+  .why-mini-card h3{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--navy-900);
+    margin:0 0 6px;
+  }
+  .why-mini-card p{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--navy-800);
+    margin:0;
+  }
+  @media (max-width: 800px){
+    .teaser-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer{
+    background:var(--navy-950);
+    color:var(--ink-muted);
+    padding:56px clamp(20px, 5vw, 64px) 0;
+  }
+  .footer-inner{
+    max-width:1240px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr 1fr;
+    gap:32px;
+    padding-bottom:40px;
+  }
+  .footer-col h4{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:13.5px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    color:#fff;
+    margin:0 0 16px;
+  }
+  .footer-col p{ font-size:14px; line-height:1.7; margin:0; }
+  .footer-col ul{ list-style:none; margin:0; padding:0; }
+  .footer-col ul li{ margin-bottom:10px; }
+  .footer-col a{
+    font-size:14px;
+    color:var(--ink-muted);
+    transition:color 0.2s ease;
+  }
+  .footer-col a:hover{ color:#fff; }
+  .footer-bottom{
+    max-width:1240px;
+    margin:0 auto;
+    border-top:1px solid rgba(255,255,255,0.08);
+    padding:20px 0;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:space-between;
+    align-items:center;
+    font-size:12.5px;
+  }
+  .footer-bottom .policy-links{ display:flex; gap:18px; flex-wrap:wrap; }
+  .footer-bottom a{ color:var(--ink-muted); }
+  .footer-bottom a:hover{ color:#fff; }
+  @media (max-width: 800px){
+    .footer-inner{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 500px){
+    .footer-inner{ grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -432,10 +608,10 @@
 
   <nav class="main-nav" aria-label="Primary">
     <ul id="primary-menu">
-     <li><a href="/">Home</a></li>
-<li><a href="/products">Products</a></li>
-<li><a href="/about">About Us</a></li>
-<li><a href="/contact">Contact Us</a></li>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact">Contact Us</a></li>
     </ul>
   </nav>
 
@@ -484,322 +660,88 @@
     Scroll
   </div>
 </section>
-<!-- ============================================================
-     PASTE THIS BLOCK RIGHT AFTER the closing </section> of the
-     hero (id="home"), and BEFORE the <script> tag at the bottom
-     of index.html. It reuses the CSS variables already defined
-     in your :root, so no other changes are needed.
-     ============================================================ -->
 
-<style>
-  /* ---------- ABOUT PREVIEW ---------- */
-  .about-preview{
-    background:var(--paper-050);
-    padding:96px clamp(20px, 5vw, 64px);
-  }
-  .about-preview .wrap{
-    max-width:1200px;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
-    gap:64px;
-    align-items:center;
-  }
-  .about-preview h2{
-    font-family:'Montserrat', sans-serif;
-    font-weight:800;
-    font-size:clamp(1.75rem, 3vw, 2.5rem);
-    line-height:1.15;
-    color:var(--navy-900);
-    margin:0 0 20px 0;
-  }
-  .about-preview p{
-    font-size:1.05rem;
-    line-height:1.7;
-    color:#4A5568;
-    max-width:52ch;
-    margin:0 0 28px 0;
-  }
-  .about-preview .about-link{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-weight:600;
-    color:var(--orange-600);
-    border-bottom:2px solid transparent;
-    transition:border-color 0.25s ease, gap 0.25s ease;
-  }
-  .about-preview .about-link:hover{
-    border-color:var(--orange-500);
-    gap:12px;
-  }
-
-  .about-stats{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:1px;
-    background:var(--paper-100);
-    border-radius:10px;
-    overflow:hidden;
-  }
-  .about-stats .stat{
-    background:#fff;
-    padding:32px 24px;
-  }
-  .about-stats .stat .num{
-    display:block;
-    font-family:'Montserrat', sans-serif;
-    font-weight:800;
-    font-size:2rem;
-    color:var(--navy-900);
-    margin-bottom:6px;
-  }
-  .about-stats .stat .label{
-    font-size:0.9rem;
-    color:#6B7280;
-  }
-
-  @media (max-width:800px){
-    .about-preview .wrap{ grid-template-columns:1fr; gap:36px; }
-  }
-
-  /* ---------- PRODUCTS SHOWCASE ---------- */
-  .products-preview{
-    background:var(--navy-950);
-    padding:96px clamp(20px, 5vw, 64px);
-  }
-  .products-preview .head{
-    max-width:1200px;
-    margin:0 auto 44px auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    gap:24px;
-    flex-wrap:wrap;
-  }
-  .products-preview h2{
-    font-family:'Montserrat', sans-serif;
-    font-weight:800;
-    font-size:clamp(1.75rem, 3vw, 2.5rem);
-    color:#fff;
-    margin:0;
-  }
-  .products-preview .view-all{
-    color:#EDEFEF;
-    font-weight:500;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding-bottom:2px;
-    border-bottom:1px solid rgba(255,255,255,0.3);
-    transition:border-color 0.25s ease;
-    white-space:nowrap;
-  }
-  .products-preview .view-all:hover{ border-color:var(--orange-500); color:#fff; }
-
-  .products-grid{
-    max-width:1200px;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns:repeat(5, 1fr);
-    gap:20px;
-  }
-  .product-card{
-    position:relative;
-    border-radius:8px;
-    overflow:hidden;
-    aspect-ratio:3/4;
-    background:var(--navy-800);
-  }
-  .product-card img{
-    width:100%; height:100%;
-    object-fit:cover;
-    transition:transform 0.5s ease;
-  }
-  .product-card:hover img{ transform:scale(1.06); }
-  .product-card .card-label{
-    position:absolute;
-    left:0; right:0; bottom:0;
-    padding:18px 16px;
-    background:linear-gradient(to top, rgba(7,21,39,0.92) 0%, transparent 100%);
-    color:#fff;
-    font-weight:600;
-    font-size:0.95rem;
-  }
-
-  @media (max-width:900px){
-    .products-grid{ grid-template-columns:repeat(3, 1fr); }
-  }
-  @media (max-width:560px){
-    .products-grid{ grid-template-columns:repeat(2, 1fr); }
-    .products-preview .head{ align-items:flex-start; }
-  }
-
-  /* ---------- CTA BANNER ---------- */
-  .cta-banner{
-    background:var(--orange-500);
-    padding:64px clamp(20px, 5vw, 64px);
-    text-align:center;
-  }
-  .cta-banner h3{
-    font-family:'Montserrat', sans-serif;
-    font-weight:800;
-    font-size:clamp(1.4rem, 2.4vw, 2rem);
-    color:#fff;
-    margin:0 0 12px 0;
-  }
-  .cta-banner p{
-    color:rgba(255,255,255,0.9);
-    margin:0 0 28px 0;
-    font-size:1.05rem;
-  }
-  .cta-banner a{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    background:#fff;
-    color:var(--orange-600);
-    font-weight:700;
-    padding:14px 30px;
-    border-radius:6px;
-    transition:transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .cta-banner a:hover{
-    transform:translateY(-3px);
-    box-shadow:0 12px 22px -8px rgba(0,0,0,0.35);
-  }
-
-  /* ---------- FOOTER ---------- */
-  .site-footer{
-    background:var(--navy-950);
-    padding:64px clamp(20px, 5vw, 64px) 32px;
-    color:#B9C2CC;
-  }
-  .site-footer .footer-grid{
-    max-width:1200px;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns:1.3fr 1fr 1fr;
-    gap:48px;
-    padding-bottom:40px;
-    border-bottom:1px solid rgba(255,255,255,0.08);
-  }
-  .site-footer .logo-block{
-    font-family:'Montserrat', sans-serif;
-    font-weight:800;
-    font-size:20px;
-    color:#fff;
-    margin-bottom:14px;
-  }
-  .site-footer .logo-block span{ color:var(--orange-500); }
-  .site-footer p{ font-size:0.92rem; line-height:1.6; max-width:34ch; }
-  .site-footer h4{
-    color:#fff;
-    font-size:0.95rem;
-    font-weight:600;
-    margin:0 0 16px 0;
-  }
-  .site-footer ul{ list-style:none; margin:0; padding:0; }
-  .site-footer li{ margin-bottom:10px; }
-  .site-footer a{
-    color:#B9C2CC;
-    font-size:0.92rem;
-    transition:color 0.2s ease;
-  }
-  .site-footer a:hover{ color:var(--orange-500); }
-  .site-footer .bottom-row{
-    max-width:1200px;
-    margin:24px auto 0 auto;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:12px;
-    font-size:0.85rem;
-    color:#6B7A8C;
-  }
-
-  @media (max-width:800px){
-    .site-footer .footer-grid{ grid-template-columns:1fr; gap:32px; }
-  }
-</style>
-
-<!-- About preview -->
-<section class="about-preview" id="about-preview">
-  <div class="wrap">
-    <div>
-      <h2>Packaging built the way your product needs it</h2>
-      <p>
-        IP Printers manufactures custom boxes and bags in-house, from raw
-        board to finished carton, right here in Faisalabad. We work with
-        retail and food businesses that need consistent print quality,
-        reliable turnaround, and sizes that actually fit what they're
-        packing.
-      </p>
-      <a href="/about" class="about-link">
-        More about us
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-      </a>
+<section class="home-section products-preview">
+  <p class="eyebrow-line">WHAT WE MAKE</p>
+  <h2>Our Products</h2>
+  <p class="section-sub">Custom-printed boxes and bags, manufactured in-house from raw board to finished carton — for every kind of business.</p>
+  <div class="product-grid">
+    <div class="product-card reveal">
+      <svg class="p-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8L12 3 3 8v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+      <h3>Ladies Suit Box</h3>
+      <span>21 designs</span>
     </div>
-    <div class="about-stats">
-      <div class="stat"><span class="num">5</span><span class="label">Product categories</span></div>
-      <div class="stat"><span class="num">500+</span><span class="label">Minimum order units</span></div>
-      <div class="stat"><span class="num">33+</span><span class="label">Ready designs to choose from</span></div>
-      <div class="stat"><span class="num">100%</span><span class="label">In-house manufacturing</span></div>
+    <div class="product-card reveal">
+      <svg class="p-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8L12 3 3 8v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+      <h3>Gents Box</h3>
+      <span>25 designs</span>
+    </div>
+    <div class="product-card reveal">
+      <svg class="p-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8L12 3 3 8v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+      <h3>Bakery Box</h3>
+      <span>4 designs</span>
+    </div>
+    <div class="product-card reveal">
+      <svg class="p-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8L12 3 3 8v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+      <h3>Pizza Box</h3>
+      <span>4 designs</span>
+    </div>
+    <div class="product-card reveal">
+      <svg class="p-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h16l-1.5 12h-13L4 8z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg>
+      <h3>Shopping Bags</h3>
+      <span>4 designs</span>
     </div>
   </div>
-</section>
-
-<!-- Products showcase -->
-<section class="products-preview" id="products-preview">
-  <div class="head">
-    <h2>What we print</h2>
-    <a href="/products" class="view-all">
-      View all products
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-    </a>
-  </div>
-  <div class="products-grid">
-    <a href="/products" class="product-card">
-      <img src="ladies-1.png" alt="Ladies suit box">
-      <span class="card-label">Ladies Suit Box</span>
-    </a>
-    <a href="/products" class="product-card">
-      <img src="gents-1.png" alt="Gents box">
-      <span class="card-label">Gents Box</span>
-    </a>
-    <a href="/products" class="product-card">
-      <img src="bakery-1.png" alt="Bakery box">
-      <span class="card-label">Bakery Box</span>
-    </a>
-    <a href="/products" class="product-card">
-      <img src="pizza-1.png" alt="Pizza box">
-      <span class="card-label">Pizza Box</span>
-    </a>
-    <a href="/products" class="product-card">
-      <img src="bags-1.png" alt="Shopping bags">
-      <span class="card-label">Shopping Bags</span>
-    </a>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-banner">
-  <h3>Need a size or finish that's not listed?</h3>
-  <p>We print custom sizes, materials and finishes to order — minimum 500 units.</p>
-  <a href="https://wa.me/923056232108?text=Hi%2C%20I%27m%20interested%20in%20custom%20packaging%20from%20IP%20Printers.">
-    Get a quote on WhatsApp
+  <a href="/products" class="section-link">
+    View All Products
+    <span class="arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </span>
   </a>
 </section>
 
-<!-- Footer -->
-<footer class="site-footer">
-  <div class="footer-grid">
-    <div>
-      <div class="logo-block">IP <span>PRINTERS</span></div>
-      <p>Custom-printed boxes and bags, manufactured in-house from raw board to finished carton, in Faisalabad, Pakistan.</p>
+<section class="home-section about-teaser">
+  <div class="teaser-grid">
+    <div class="teaser-copy reveal">
+      <p class="eyebrow-line">ABOUT US</p>
+      <h2>Built On Craftsmanship And Consistency</h2>
+      <p>IP Printers designs and manufactures packaging for businesses in Faisalabad and across Pakistan, backed by real hands-on manufacturing experience. Every box and bag we produce is made in-house, from raw board to finished product, using materials we refuse to compromise on.</p>
+      <a href="/about" class="section-link">
+        Learn More About Us
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </span>
+      </a>
     </div>
-    <div>
-      <h4>Explore</h4>
+    <div class="why-mini-grid">
+      <div class="why-mini-card reveal">
+        <h3>Fully In-House Production</h3>
+        <p>From design to the finished carton, every step happens under one roof.</p>
+      </div>
+      <div class="why-mini-card reveal">
+        <h3>No Compromise on Materials</h3>
+        <p>Full, high-quality board and print stock on every job — no shortcuts.</p>
+      </div>
+      <div class="why-mini-card reveal">
+        <h3>Custom Sizes &amp; Finishes</h3>
+        <p>Custom sizes, materials, and finishes printed to order.</p>
+      </div>
+      <div class="why-mini-card reveal">
+        <h3>Nationwide Delivery</h3>
+        <p>We deliver to businesses in almost every part of Pakistan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>IP Printers</h4>
+      <p>Packaging solutions designed and manufactured in-house — from concept to finished product, for businesses across Pakistan.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/products">Products</a></li>
@@ -807,45 +749,78 @@
         <li><a href="/contact">Contact Us</a></li>
       </ul>
     </div>
-    <div>
-      <h4>Get in touch</h4>
+    <div class="footer-col">
+      <h4>Contact</h4>
       <ul>
-        <li><a href="https://wa.me/923056232108">WhatsApp: +92 305 6232108</a></li>
-        <li><a href="tel:+923056232108">Call: +92 305 6232108</a></li>
-        <li>Faisalabad, Pakistan</li>
+        <li><a href="tel:+923056232108">+92 305 6232108</a></li>
+        <li><a href="https://wa.me/923056232108" target="_blank" rel="noopener">WhatsApp Us</a></li>
+        <li><a href="https://www.instagram.com/ipprinters2/" target="_blank" rel="noopener">@ipprinters2</a></li>
       </ul>
     </div>
+    <div class="footer-col">
+      <h4>Location</h4>
+      <p>Faisalabad, Pakistan</p>
+    </div>
   </div>
-  <div class="bottom-row">
-    <span>&copy; <span id="year"></span> IP Printers. All rights reserved.</span>
+  <div class="footer-bottom">
+    <span>&copy; <span id="footYear"></span> IP Printers. All rights reserved.</span>
+    <div class="policy-links">
+      <a href="/terms">Terms</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/returns">Returns</a>
+      <a href="/shipping">Shipping</a>
+    </div>
   </div>
 </footer>
 
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+  const footYearEl = document.getElementById('footYear');
+  if (footYearEl) footYearEl.textContent = new Date().getFullYear();
 </script>
 
 <script>
   const toggle = document.getElementById('navToggle');
   const menu = document.getElementById('primary-menu');
-  toggle.addEventListener('click', () => {
-    const isOpen = menu.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(isOpen));
-  });
-  menu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      menu.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
     });
-  });
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
   // Header solidifies on scroll
   const header = document.querySelector('.site-header');
   const onScroll = () => {
-    header.classList.toggle('scrolled', window.scrollY > 24);
+    if (header) header.classList.toggle('scrolled', window.scrollY > 24);
   };
   window.addEventListener('scroll', onScroll, { passive:true });
   onScroll();
+
+  // Reveal sections on scroll
+  try {
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting){
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealItems.forEach(item => revealObserver.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add('is-visible'));
+    }
+  } catch (err) {
+    console.error('Reveal animation failed:', err);
+  }
 
   // Subtle background parallax on pointer move (desktop with fine pointer only)
   const heroBg = document.querySelector('.hero-bg');
