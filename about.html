@@ -392,6 +392,45 @@
     .stat:nth-child(odd){ border-right:1px solid var(--paper-100); }
     .cta-strip-inner{ flex-direction:column; align-items:flex-start; }
   }
+
+  /* ---------- NEXT PAGE NAV ---------- */
+  .next-page-nav{
+    background:var(--navy-950);
+    padding:40px clamp(20px, 5vw, 64px);
+    display:flex;
+    justify-content:center;
+  }
+  .next-page-link{
+    display:inline-flex;
+    align-items:center;
+    gap:18px;
+    color:#fff;
+    padding:16px 28px;
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:8px;
+    transition:border-color 0.25s ease, transform 0.25s ease;
+  }
+  .next-page-link:hover{ border-color:var(--orange-500); transform:translateX(4px); }
+  .next-page-text{ display:flex; flex-direction:column; align-items:flex-start; gap:2px; }
+  .next-page-label{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--orange-500);
+  }
+  .next-page-title{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:16px;
+  }
+  .next-page-arrow{
+    display:flex;
+    color:var(--orange-500);
+    transition:transform 0.25s ease;
+  }
+  .next-page-link:hover .next-page-arrow{ transform:translateX(4px); }
 </style>
 </head>
 <body>
@@ -531,6 +570,18 @@
       Get a Quote on WhatsApp
     </a>
   </div>
+</section>
+
+<section class="next-page-nav">
+  <a href="/contact" class="next-page-link">
+    <div class="next-page-text">
+      <span class="next-page-label">Next Page</span>
+      <span class="next-page-title">Get In Touch</span>
+    </div>
+    <span class="next-page-arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </span>
+  </a>
 </section>
 
 <a href="https://wa.me/923056232108" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
