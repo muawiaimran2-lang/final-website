@@ -1070,5 +1070,146 @@
   input.addEventListener('keypress', e => { if (e.key === 'Enter') handleSend(); });
 })();
 </script>
+  <!-- IP Printers Chatbot Widget (Improved) -->
+<!-- Is poore code ko apni index.html ke </body> tag se pehle paste karein -->
+
+<div id="ipp-chat-bubble" style="position:fixed;bottom:20px;right:20px;width:60px;height:60px;border-radius:50%;background:#1e40af;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:9999;font-size:26px;">💬</div>
+
+<div id="ipp-chat-box" style="display:none;position:fixed;bottom:90px;right:20px;width:320px;max-width:90vw;height:440px;background:#fff;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.25);z-index:9999;flex-direction:column;overflow:hidden;font-family:Arial,sans-serif;">
+  <div style="background:#1e40af;color:#fff;padding:12px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
+    IP Printers Assistant
+    <span id="ipp-close" style="cursor:pointer;font-size:18px;">✕</span>
+  </div>
+  <div id="ipp-messages" style="flex:1;padding:12px;overflow-y:auto;font-size:14px;color:#222;background:#f7f8fa;"></div>
+  <div style="display:flex;border-top:1px solid #eee;">
+    <input id="ipp-input" type="text" placeholder="Apna sawal likhein..." style="flex:1;border:none;padding:10px;font-size:14px;outline:none;">
+    <button id="ipp-send" style="background:#1e40af;color:#fff;border:none;padding:0 16px;cursor:pointer;">Send</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const BIZ = {
+    name: "IP Printers",
+    location: "Faisalabad",
+    whatsapp: "03056232108",
+    website: "https://final-website-neon-tau.vercel.app/",
+    products: ["suiting boxes", "bakery boxes", "stylish boxes", "custom boxes", "shopping bags", "custom printing"]
+  };
+
+  // Topic groups: har topic ke against kayi synonyms/spellings, aur kayi possible replies (random pick se natural lagta hai)
+  const TOPICS = [
+    {
+      keys: ["salam","assalam","hello","hi ","hey","kesay ho","kese ho"],
+      replies: [
+        `Assalam-o-Alaikum! Main ${BIZ.name} ka assistant hoon, kis cheez mein madad chahiye?`,
+        `Ji bilkul, ${BIZ.name} mein khush aamdeed! Boxes, bags ya printing ke bare mein poochain.`
+      ]
+    },
+    {
+      keys: ["suit","suiting","sooting"],
+      replies: [
+        "Ji, hum suiting boxes banate hain — ye hamari sab se bari specialty hai, chote se le kar bade cartons tak jo 10-12 suits samo sakte hain.",
+        "Suiting boxes hamara main kaam hai, har size aur design mein available hain."
+      ]
+    },
+    {
+      keys: ["bakery","cake box","bakery box"],
+      replies: ["Ji haan, hum bakery boxes bhi banate hain — custom size aur design ke sath, jaisa aap ki requirement ho."]
+    },
+    {
+      keys: ["bag","bags","shopping bag","thaila","thela"],
+      replies: ["Hum stylish aur custom shopping bags banate hain, apni required size aur design bata dein, hum bana dengay."]
+    },
+    {
+      keys: ["print","printing","chappai"],
+      replies: ["Hum har type ki custom printing offer karte hain, boxes ho ya bags, aap ke design ke mutabiq."]
+    },
+    {
+      keys: ["price","rate","qeemat","kitnay ka","cost","kitna"],
+      replies: [`Price quantity, size aur design par depend karti hai. Best rahega WhatsApp pe details share karein: ${BIZ.whatsapp}`]
+    },
+    {
+      keys: ["contact","whatsapp","number","rabta","call","phone"],
+      replies: [`Hamein WhatsApp par contact karein: ${BIZ.whatsapp}`]
+    },
+    {
+      keys: ["location","address","kahan","kidhar",BIZ.location.toLowerCase()],
+      replies: [`Hamari factory ${BIZ.location} mein hai.`]
+    },
+    {
+      keys: ["website","site","link"],
+      replies: [`Ye raha website: ${BIZ.website}`]
+    },
+    {
+      keys: ["product","products","kya banate","kia banaty","items","range"],
+      replies: [`Hum banate hain: ${BIZ.products.join(", ")}.`]
+    },
+    {
+      keys: ["order","mangwana","mangwna","booking"],
+      replies: [`Order ke liye seedha WhatsApp pe rabta karein: ${BIZ.whatsapp}, hum details poochlein gay.`]
+    },
+    {
+      keys: ["thanks","shukriya","thank you"],
+      replies: ["Khush raho! Aur kuch poochna ho to bata dein."]
+    }
+  ];
+
+  const OFF_TOPIC = [
+    `Maazrat, main sirf ${BIZ.name} ki products/services ke bare mein baat kar sakta hoon. Kisi aur cheez ke liye WhatsApp par rabta karein: ${BIZ.whatsapp}`,
+    `Ye sawal thora hat kar hai — main sirf boxes, bags aur printing se related guidance de sakta hoon.`
+  ];
+
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  function getReply(msg){
+    const text = " " + msg.toLowerCase() + " ";
+    let best = null, bestScore = 0;
+    for (const topic of TOPICS){
+      let score = 0;
+      for (const k of topic.keys){
+        if (text.includes(k.toLowerCase())) score++;
+      }
+      if (score > bestScore){ bestScore = score; best = topic; }
+    }
+    if (best) return pick(best.replies);
+    return pick(OFF_TOPIC);
+  }
+
+  const bubble = document.getElementById('ipp-chat-bubble');
+  const box = document.getElementById('ipp-chat-box');
+  const closeBtn = document.getElementById('ipp-close');
+  const messages = document.getElementById('ipp-messages');
+  const input = document.getElementById('ipp-input');
+  const sendBtn = document.getElementById('ipp-send');
+
+  function addMsg(text, from){
+    const div = document.createElement('div');
+    div.style.margin = "6px 0";
+    div.style.textAlign = from === 'user' ? 'right' : 'left';
+    div.innerHTML = `<span style="display:inline-block;padding:8px 12px;border-radius:10px;max-width:80%;background:${from==='user' ? '#1e40af' : '#e5e7eb'};color:${from==='user' ? '#fff' : '#111'};">${text}</span>`;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  bubble.onclick = () => {
+    box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+    if (!messages.hasChildNodes()){
+      addMsg(`Assalam-o-Alaikum! Main ${BIZ.name} ka chatbot hoon. Boxes, bags, printing ya contact ke bare mein pooch sakte hain.`, 'bot');
+    }
+  };
+  closeBtn.onclick = () => box.style.display = 'none';
+
+  function handleSend(){
+    const val = input.value.trim();
+    if (!val) return;
+    addMsg(val, 'user');
+    input.value = '';
+    setTimeout(() => addMsg(getReply(val), 'bot'), 300);
+  }
+  sendBtn.onclick = handleSend;
+  input.addEventListener('keypress', e => { if (e.key === 'Enter') handleSend(); });
+})();
+</script>
 </body>
 </html>
